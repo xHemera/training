@@ -1,2 +1,1 @@
-# training
-# training
+# JE N'AI PAS ENCORE VALIDE L'EXAM, NE PAS SE FIER  A MON CODE :)
