@@ -2,22 +2,26 @@
 
 int invalid(char *str)
 {
-	int opened = 0;
+	int open = 0;
 	int closed = 0;
 	int i = 0;
+	char c;
 
-	while(str[i])
+	while (str[i])
 	{
-		if (str[i] == '(')
-			opened++;
-		else if (str[i] == ')')
-			if (opened > 0)
-				opened--;
+		c = str[i];
+		if (c == '(')
+			open++;
+		else if (c == ')')
+		{
+			if (open > 0)
+				open--;
 			else
 				closed++;
+		}
 		i++;
 	}
-	return (closed + opened);
+	return (open + closed);
 }
 
 void solve(char *str, int must_fix, int fixed, int pos)
@@ -34,7 +38,7 @@ void solve(char *str, int must_fix, int fixed, int pos)
 		if (str[i] == '(' || str[i] == ')')
 		{
 			c = str[i];
-			str[i] = ' ';
+			str[i] = '_';
 			solve(str, must_fix, fixed + 1, i + 1);
 			str[i] = c;
 		}
@@ -47,5 +51,6 @@ int main(int argc, char **argv)
 	if (argc != 2)
 		return 1;
 	char *str = argv[1];
-	solve(str, invalid(argv[1]), 0, 0);
+	solve(str, invalid(str), 0, 0);
+	return 0;
 }

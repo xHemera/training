@@ -53,6 +53,9 @@ int main(int ac, char **av)
 	(void)ac;//needs to be changed according to the subject requi.
 	int n = atoi(av[1]);
 	int *board = malloc(sizeof(int) * n);
+	int i = 0;
+	while (i < n)
+		board[i++] = -1;
 
 	solve(board, 0, n);
 	free(board);

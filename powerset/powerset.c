@@ -3,8 +3,8 @@
 
 int calc(int *nums, int n)
 {
-	int ret = 0;
 	int i = 0;
+	int ret = 0;
 	while (i < n)
 	{
 		ret += nums[i];
@@ -35,8 +35,8 @@ void solve(int *nums, int *subset, int size, int n, int subsize, int level)
 		return ;
 	}
 	subset[subsize] = nums[level];
-	solve(nums, subset, size, n, subsize + 1, level + 1);
-	solve(nums, subset, size, n, subsize, level + 1);
+	solve(nums, subset, size, n, subsize+1, level+1);
+	solve(nums, subset, size, n, subsize, level+1);
 }
 
 int main(int argc, char **argv)
@@ -45,9 +45,9 @@ int main(int argc, char **argv)
 		return 1;
 	int size = argc - 2;
 	int n = atoi(argv[1]);
-	int i = 0;
 	int *nums = malloc(sizeof(int) * size);
 	int *subset = malloc(sizeof(int) * size);
+	int i = 0;
 
 	while (i < size)
 	{
