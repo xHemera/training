@@ -11,10 +11,9 @@ void swap(char *s1, char *s2)
 void sort(char *str)
 {
 	int i = 0;
-	int j = 0;
 	while (str[i])
 	{
-		j = i + 1;
+		int j = i + 1;
 		while(str[j])
 		{
 			if (str[i] > str[j])
@@ -25,32 +24,38 @@ void sort(char *str)
 	}
 }
 
-void solve(char *str, int start, int len)
+void solve(char *str, int pos, int len)
 {
-	int i = start;
-	if (start == len)
+	if (pos == len)
 	{
 		write(1, str, len);
 		write(1, "\n", 1);
 		return ;
 	}
+	sort(str + pos);
+	int i = pos;
 	while (i < len)
 	{
-		swap(&str[start], &str[i]);
-		solve(str, start+1, len);
-		swap(&str[start], &str[i]);
+		if (i != pos && str[i] == str[pos])
+        {
+            i++;
+            continue;
+        }
+		swap(&str[pos], &str[i]);
+		solve(str, pos + 1, len);
+		swap(&str[pos], &str[i]);
+		if (i < len - 1)
+			sort(str + pos);
 		i++;
 	}
+	return ;
 }
 
 int main(int argc, char **argv)
 {
-	if (argc < 2)
+	if (argc != 2)
 		return 1;
-	char *str = argv[1];
-	int len = strlen(str);
-	sort(str);
-	solve(str, 0, len);
+	sort(argv[1]);
+	solve(argv[1], 0, strlen(argv[1]));
 	return 0;
 }
-
