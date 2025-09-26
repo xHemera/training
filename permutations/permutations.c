@@ -1,67 +1,56 @@
-#include <stdio.h>
-#include <unistd.h>
 #include <string.h>
-#include <stdlib.h>
+#include <unistd.h>
 
-
-void	swap(char *s, char *ss)
+void swap(char *s1, char *s2)
 {
-	char tmp = *s;
-	*s = *ss;
-	*ss = tmp;
+	char tmp = *s1;
+	*s1 = *s2;
+	*s2 = tmp;
 }
 
-void	sort(char *s)
+void sort(char *str)
 {
 	int i = 0;
 	int j = 0;
-	while(s[i])
+	while (str[i])
 	{
 		j = i + 1;
-		while(s[j])
+		while(str[j])
 		{
-			if(s[i] > s[j])
-				swap(&s[i], &s[j]);
+			if (str[i] > str[j])
+				swap(&str[i], &str[j]);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	print(char *s, int n)
+void solve(char *str, int start, int len)
 {
-	write(1, s, n);
-	write(1, "\n", 1);
-}
-
-void	solve(char *s, int start, int n)
-{
-	int i = 0;
-	if(start == n)
+	int i = start;
+	if (start == len)
 	{
-		print(s, n);
+		write(1, str, len);
+		write(1, "\n", 1);
 		return ;
 	}
-	i = start;
-	while(i < n)
+	while (i < len)
 	{
-		swap(&s[start], &s[i]);
-		solve(s, start + 1, n);
-		swap(&s[start], &s[i]);
+		swap(&str[start], &str[i]);
+		solve(str, start+1, len);
+		swap(&str[start], &str[i]);
 		i++;
 	}
 }
 
-
-int main(int ac, char **av)
+int main(int argc, char **argv)
 {
-    if(ac < 2)
-        return 1;
-
-    char *s = strdup(av[1]);
-    int n = strlen(av[1]);
-    sort(s);
-    solve(s, 0, n);
-    free(s);
-    return 0;
+	if (argc < 2)
+		return 1;
+	char *str = argv[1];
+	int len = strlen(str);
+	sort(str);
+	solve(str, 0, len);
+	return 0;
 }
+
