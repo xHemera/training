@@ -1,5 +1,5 @@
-#include <string.h>
 #include <unistd.h>
+#include <string.h>
 
 void swap(char *s1, char *s2)
 {
@@ -14,10 +14,10 @@ void sort(char *str)
 	while (str[i])
 	{
 		int j = i + 1;
-		while(str[j])
+		while (str[j])
 		{
-			if (str[i] > str[j])
-				swap(&str[i], &str[j]);
+			if (str[j] < str[i])
+				swap(&str[j], &str[i]);
 			j++;
 		}
 		i++;
@@ -36,19 +36,17 @@ void solve(char *str, int pos, int len)
 	int i = pos;
 	while (i < len)
 	{
-		if (i != pos && str[i] == str[pos])
-        {
-            i++;
-            continue;
-        }
-		swap(&str[pos], &str[i]);
-		solve(str, pos + 1, len);
-		swap(&str[pos], &str[i]);
-		if (i < len - 1)
-			sort(str + pos);
-		i++;
+		if(i != pos && str[i] == str[i-1])
+			i++;
+		else
+		{
+			swap(&str[i], &str[pos]);
+			solve(str, pos + 1, len);
+			swap(&str[i], &str[pos]);
+			i++;
+		}
 	}
-	return ;
+	sort(str+pos);
 }
 
 int main(int argc, char **argv)
@@ -59,3 +57,4 @@ int main(int argc, char **argv)
 	solve(argv[1], 0, strlen(argv[1]));
 	return 0;
 }
+
